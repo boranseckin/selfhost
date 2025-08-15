@@ -1,0 +1,85 @@
+name: paperless
+
+services:
+  broker:
+    image: docker.io/library/redis:8
+    restart: unless-stopped
+    volumes:
+      - redisdata:/data
+    networks:
+      - traefik-proxy
+
+  db:
+    image: docker.io/library/postgres:17
+    restart: unless-stopped
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: paperless
+      POSTGRES_USER: paperless
+      POSTGRES_PASSWORD: paperless
+    networks:
+      - traefik-proxy
+
+  webserver:
+    image: ghcr.io/paperless-ngx/paperless-ngx:latest
+    user: "1000"
+    restart: unless-stopped
+    depends_on:
+      - db
+      - broker
+      - gotenberg
+      - tika
+    ports:
+      - "8000:8000"
+    volumes:
+      - data:/usr/src/paperless/data
+      - media:/usr/src/paperless/media
+      - /share/paperless/export:/usr/src/paperless/export
+      - /share/paperless/consume:/usr/src/paperless/consume
+    environment:
+      PAPERLESS_TIME_ZONE: America/Toronto
+      PAPERLESS_REDIS: redis://broker:6379
+      PAPERLESS_DBHOST: db
+      PAPERLESS_TIKA_ENABLED: 1
+      PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://gotenberg:3000
+      PAPERLESS_TIKA_ENDPOINT: http://tika:9998
+      PAPERLESS_ALLOWED_HOSTS: "*"
+      PAPERLESS_CSRF_TRUSTED_ORIGINS: "http://192.168.0.101"
+      PAPERLESS_USE_X_FORWARD_HOST: true
+      PAPERLESS_USE_X_FORWARD_PORT: true
+      PAPERLESS_FORCE_SCRIPT_NAME: /paperless
+    networks:
+      - traefik-proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.paperless.rule=PathPrefix(`/paperless`)"
+      - "traefik.http.services.paperless.loadbalancer.server.port=8000"
+
+  gotenberg:
+    image: docker.io/gotenberg/gotenberg:8.20
+    restart: unless-stopped
+    # The gotenberg chromium route is used to convert .eml files. We do not
+    # want to allow external content like tracking pixels or even javascript.
+    command:
+      - "gotenberg"
+      - "--chromium-disable-javascript=true"
+      - "--chromium-allow-list=file:///tmp/.*"
+    networks:
+      - traefik-proxy
+
+  tika:
+    image: docker.io/apache/tika:latest
+    restart: unless-stopped
+    networks:
+      - traefik-proxy
+
+volumes:
+  data:
+  media:
+  pgdata:
+  redisdata:
+
+networks:
+  traefik-proxy:
+    external: true
