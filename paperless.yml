@@ -45,7 +45,7 @@ services:
       PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://gotenberg:3000
       PAPERLESS_TIKA_ENDPOINT: http://tika:9998
       PAPERLESS_ALLOWED_HOSTS: "*"
-      PAPERLESS_CSRF_TRUSTED_ORIGINS: "http://192.168.0.101"
+      PAPERLESS_CSRF_TRUSTED_ORIGINS: "http://192.168.0.101,https://mossy.dorper-lake.ts.net"
       PAPERLESS_USE_X_FORWARD_HOST: true
       PAPERLESS_USE_X_FORWARD_PORT: true
       PAPERLESS_FORCE_SCRIPT_NAME: /paperless
