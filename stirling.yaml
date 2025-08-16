@@ -1,0 +1,24 @@
+name: stirling-pdf
+
+services:
+  stirling-pdf:
+    image: docker.stirlingpdf.com/stirlingtools/stirling-pdf:latest
+    restart: unless-stopped
+    volumes:
+      - /share/StirlingPDF/trainingData:/usr/share/tessdata # Required for extra OCR languages
+      - /share/StirlingPDF/extraConfigs:/configs
+      - /share/StirlingPDF/customFiles:/customFiles/
+      - /share/StirlingPDF/logs:/logs/
+      - /share/StirlingPDF/pipeline:/pipeline/
+    environment:
+      - DISABLE_ADDITIONAL_FEATURES=false
+      - LANGS=en_CA
+    networks:
+      - tailscale
+    labels:
+      tsdproxy.enable: true
+      tsdproxy.name: pdf
+
+networks:
+  tailscale:
+    external: true

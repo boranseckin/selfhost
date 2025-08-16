@@ -11,13 +11,12 @@ services:
     volumes:
       - /share/obsidian/data:/opt/couchdb/data
       - /share/obsidian/etc:/opt/couchdb/etc/local.d
-    ports:
-      - 5984:5984
     networks:
       - tailscale
     labels:
       tsdproxy.enable: true
       tsdproxy.name: obsidian
+      tsdproxy.container_port: 5984
 
 networks:
   tailscale:
