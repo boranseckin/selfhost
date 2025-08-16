@@ -8,7 +8,7 @@ files: {}
 tailscale:
     providers:
         default:
-            authKey: "tskey-auth-kSuC2dGyFW11CNTRL-i3V5Lbe3W9A6ZhavdXWe9Av78YHxt7GL"
+            authKeyFile: tailscale.secret
             controlUrl: https://controlplane.tailscale.com
     dataDir: /data/
 http:
