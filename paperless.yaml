@@ -7,7 +7,7 @@ services:
     volumes:
       - redisdata:/data
     networks:
-      - traefik-proxy
+      - tailscale
 
   db:
     image: docker.io/library/postgres:17
@@ -19,7 +19,7 @@ services:
       POSTGRES_USER: paperless
       POSTGRES_PASSWORD: paperless
     networks:
-      - traefik-proxy
+      - tailscale
 
   webserver:
     image: ghcr.io/paperless-ngx/paperless-ngx:latest
@@ -45,16 +45,12 @@ services:
       PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://gotenberg:3000
       PAPERLESS_TIKA_ENDPOINT: http://tika:9998
       PAPERLESS_ALLOWED_HOSTS: "*"
-      PAPERLESS_CSRF_TRUSTED_ORIGINS: "http://192.168.0.101,https://mossy.dorper-lake.ts.net"
-      PAPERLESS_USE_X_FORWARD_HOST: true
-      PAPERLESS_USE_X_FORWARD_PORT: true
-      PAPERLESS_FORCE_SCRIPT_NAME: /paperless
+      PAPERLESS_CSRF_TRUSTED_ORIGINS: "https://paperless.dorper-lake.ts.net"
     networks:
-      - traefik-proxy
+      - tailscale
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.paperless.rule=PathPrefix(`/paperless`)"
-      - "traefik.http.services.paperless.loadbalancer.server.port=8000"
+      - "tsdproxy.enable=true"
+      - "tsdproxy.name=paperless"
 
   gotenberg:
     image: docker.io/gotenberg/gotenberg:8.20
@@ -66,13 +62,13 @@ services:
       - "--chromium-disable-javascript=true"
       - "--chromium-allow-list=file:///tmp/.*"
     networks:
-      - traefik-proxy
+      - tailscale
 
   tika:
     image: docker.io/apache/tika:latest
     restart: unless-stopped
     networks:
-      - traefik-proxy
+      - tailscale
 
 volumes:
   data:
@@ -81,5 +77,5 @@ volumes:
   redisdata:
 
 networks:
-  traefik-proxy:
+  tailscale:
     external: true

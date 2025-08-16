@@ -1,0 +1,21 @@
+name: open-webui
+
+services:
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    volumes:
+      - open-webui:/app/backend/data
+    ports:
+      - "3000:8080"
+    networks:
+      - tailscale
+    labels:
+      tsdproxy.enable: true
+      tsdproxy.name: ai
+
+volumes:
+  open-webui:
+
+networks:
+  tailscale:
+    external: true
