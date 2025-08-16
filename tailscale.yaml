@@ -1,3 +1,5 @@
+name: tailscale
+
 services:
   tsdproxy:
     image: almeidapaulopt/tsdproxy:1
