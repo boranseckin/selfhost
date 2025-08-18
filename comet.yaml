@@ -1,0 +1,23 @@
+name: comet
+
+services:
+  comet:
+    image: g0ldyy/comet
+    restart: unless-stopped
+    env_file:
+      - comet.secret
+    volumes:
+      - data:/app/data
+    networks:
+      - tailscale
+    labels:
+      tsdproxy.enable: true
+      tsdproxy.name: comet
+      tsdproxy.container_port: 8000
+
+volumes:
+  data:
+
+networks:
+  tailscale:
+    external: true
