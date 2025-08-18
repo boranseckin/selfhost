@@ -6,6 +6,8 @@ services:
     restart: unless-stopped
     volumes:
       - open-webui:/app/backend/data
+    environment:
+      WEBUI_AUTH: false
     networks:
       - tailscale
     labels:
