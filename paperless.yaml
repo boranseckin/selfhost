@@ -44,6 +44,7 @@ services:
       PAPERLESS_TIKA_ENDPOINT: http://tika:9998
       PAPERLESS_ALLOWED_HOSTS: "*"
       PAPERLESS_CSRF_TRUSTED_ORIGINS: "https://paperless.dorper-lake.ts.net"
+      PAPERLESS_CONSUMER_RECURSIVE: true
     networks:
       - tailscale
     labels:
