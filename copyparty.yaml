@@ -1,0 +1,32 @@
+name: copyparty
+
+services:
+  copyparty:
+    image: copyparty/ac
+    user: "1000:1000"
+    volumes:
+      - ./:/cfg:ro
+      - /share:/w
+    environment:
+      # enable mimalloc by replacing "NOPE" with "2" for a nice speed-boost (will use twice as much ram)
+      LD_PRELOAD: /usr/lib/libmimalloc-secure.so.NOPE
+      # ensures log-messages are not delayed (but can reduce speed a tiny bit)
+      PYTHONUNBUFFERED: 1
+    stop_grace_period: 15s  # thumbnailer is allowed to continue finishing up for 10s after the shutdown signal
+    healthcheck:
+      # hide it from logs with "/._" so it matches the default --lf-url filter 
+      test: ["CMD-SHELL", "wget --spider -q 127.0.0.1:3923/?reset=/._"]
+      interval: 1m
+      timeout: 2s
+      retries: 5
+      start_period: 15s
+    networks:
+      - tailscale
+    labels:
+      tsdproxy.enable: true
+      tsdproxy.name: file
+      tsdproxy.container_port: 3923
+
+networks:
+  tailscale:
+    external: true
