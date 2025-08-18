@@ -1,9 +1,31 @@
 name: comet
 
 services:
+  postgres:
+    image: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: comet
+      POSTGRES_PASSWORD: comet
+      POSTGRES_DB: comet
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    networks:
+      - tailscale
+
   comet:
     image: g0ldyy/comet
     restart: unless-stopped
+    depends_on:
+      - postgres
+    environment:
+      DASHBOARD_ADMIN_PASSWORD: comet
+      DATABASE_TYPE: postgresql
+      DATABASE_URL: comet:comet@postgres:5432
+      SCRAPE_COMET: true
+      SCRAPE_ZILEAN: true
+      SCRAPE_TORRENTIO: true
+      SCRAPE_MEDIAFUSION: true
     env_file:
       - comet.secret
     volumes:
@@ -17,6 +39,7 @@ services:
 
 volumes:
   data:
+  postgres:
 
 networks:
   tailscale:
