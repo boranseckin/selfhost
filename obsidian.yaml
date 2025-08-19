@@ -4,7 +4,6 @@ services:
   couchdb:
     image: couchdb:latest
     restart: unless-stopped
-    user: 5984:5984
     environment:
       - COUCHDB_USER=obsidian
       - COUCHDB_PASSWORD=obsidian
