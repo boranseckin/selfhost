@@ -1,0 +1,15 @@
+name: watchtower
+
+services:
+  watchtower:
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      WATCHTOWER_CLEANUP: true
+    networks:
+      - tailscale
+
+networks:
+  tailscale:
+    external: true
