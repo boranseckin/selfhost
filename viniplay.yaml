@@ -1,0 +1,22 @@
+name: viniplay
+
+services:
+  viniplay:
+    image: ardovini/viniplay:dev
+    restart: unless-stopped
+    volumes:
+      - viniplay:/data
+    env_file:
+      - ./viniplay.secret
+    networks:
+      - tailscale
+    labels:
+      tsdproxy.enable: true
+      tsdproxy.name: tv
+
+volumes:
+  viniplay:
+
+networks:
+  tailscale:
+    external: true
