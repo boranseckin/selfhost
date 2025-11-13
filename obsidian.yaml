@@ -7,6 +7,10 @@ services:
     environment:
       - COUCHDB_USER=obsidian
       - COUCHDB_PASSWORD=obsidian
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "2048m"
     volumes:
       - /share/obsidian/data:/opt/couchdb/data
       - /share/obsidian/etc:/opt/couchdb/etc/local.d
