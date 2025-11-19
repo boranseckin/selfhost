@@ -2,7 +2,7 @@ name: viniplay
 
 services:
   viniplay:
-    image: ardovini/viniplay:dev
+    image: ardovini/viniplay
     restart: unless-stopped
     volumes:
       - viniplay:/data
