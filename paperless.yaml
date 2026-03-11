@@ -7,7 +7,7 @@ services:
     volumes:
       - redisdata:/data
     networks:
-      - tailscale
+      - paperless
 
   db:
     image: docker.io/library/postgres:17
@@ -19,7 +19,7 @@ services:
       POSTGRES_USER: paperless
       POSTGRES_PASSWORD: paperless
     networks:
-      - tailscale
+      - paperless
 
   webserver:
     image: ghcr.io/paperless-ngx/paperless-ngx:latest
@@ -45,6 +45,7 @@ services:
       PAPERLESS_URL: "https://paperless.dorper-lake.ts.net"
       PAPERLESS_CONSUMER_RECURSIVE: true
     networks:
+      - paperless
       - tailscale
     labels:
       - "tsdproxy.enable=true"
@@ -60,13 +61,13 @@ services:
       - "--chromium-disable-javascript=true"
       - "--chromium-allow-list=file:///tmp/.*"
     networks:
-      - tailscale
+      - paperless
 
   tika:
     image: docker.io/apache/tika:latest
     restart: unless-stopped
     networks:
-      - tailscale
+      - paperless
 
 volumes:
   data:
@@ -77,3 +78,5 @@ volumes:
 networks:
   tailscale:
     external: true
+  paperless:
+    external: false
