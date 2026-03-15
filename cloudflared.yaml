@@ -1,0 +1,14 @@
+name: cloudflared
+
+services:
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run
+    env_file: cloudflared.secret
+    networks:
+      - cloudflared
+
+networks:
+  cloudflared:
+    name: cloudflared
