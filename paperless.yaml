@@ -76,7 +76,7 @@ volumes:
   redisdata:
 
 networks:
+  paperless:
+    name: paperless
   tailscale:
     external: true
-  paperless:
-    external: false

@@ -12,21 +12,18 @@ services:
       - FORGEJO__database__NAME=forgejo
       - FORGEJO__database__USER=forgejo
       - FORGEJO__database__PASSWD=forgejo
-      - FORGEJO__server__ROOT_URL=https://git.dorper-lake.ts.net
-      - FORGEJO__server__SSH_DOMAIN=git.dorper-lake.ts.net
+      - FORGEJO__server__ROOT_URL=https://git.boranseckin.com
+      - FORGEJO__server__SSH_DOMAIN="mossy.dorper-lake.ts.net:222"
     volumes:
       - data:/data
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     ports:
+      - '3000:3000'
       - '222:22'
     networks:
       - forgejo
-      - tailscale
-    labels:
-      tsdproxy.enable: "true"
-      tsdproxy.name: git
-      tsdproxy.container_port: "3000"
+      - cloudflared
     depends_on:
       - db
 
@@ -47,7 +44,7 @@ volumes:
   pgdata:
 
 networks:
-  tailscale:
-    external: true
   forgejo:
-    external: false
+    name: forgejo
+  cloudflared:
+    external: true
