@@ -12,8 +12,16 @@ services:
       - FORGEJO__database__NAME=forgejo
       - FORGEJO__database__USER=forgejo
       - FORGEJO__database__PASSWD=forgejo
+      - FORGEJO____APP_NAME=Forgejo
+      - FORGEJO____APP_SLOGAN=
+      - FORGEJO____APP_DISPLAY_NAME_FORMAT={APP_NAME}
+      - FORGEJO__server__DOMAIN=git.boranseckin.com
       - FORGEJO__server__ROOT_URL=https://git.boranseckin.com
-      - FORGEJO__server__SSH_DOMAIN="mossy.dorper-lake.ts.net:222"
+      - FORGEJO__server__SSH_DOMAIN=mossy.dorper-lake.ts.net:222
+      - FORGEJO__server__LANDING_PAGE=/boranseckin
+      - FORGEJO__ui_0x2E_meta__AUTHOR=Boran Seckin
+      - FORGEJO__ui_0x2E_meta__DESCRIPTION=A personal Git server hosting open-source projects and experiments. Browse repositories, track issues, and explore code.
+      - FORGEJO__ui_0x2E_meta__KEYWORDS=git,open-source,code,repositories,forge,forgejo
     volumes:
       - data:/data
       - /etc/timezone:/etc/timezone:ro
