@@ -4,14 +4,15 @@ services:
   server:
     image: codeberg.org/forgejo/forgejo:13
     restart: unless-stopped
+    env_file: forgejo.secret
+    # FORGEJO__database__NAME
+    # FORGEJO__database__USER
+    # FORGEJO__database__PASSWD
     environment:
       - USER_UID=1000
       - USER_GID=1000
       - FORGEJO__database__DB_TYPE=postgres
       - FORGEJO__database__HOST=db:5432
-      - FORGEJO__database__NAME=forgejo
-      - FORGEJO__database__USER=forgejo
-      - FORGEJO__database__PASSWD=forgejo
       - FORGEJO____APP_NAME=Forgejo
       - FORGEJO____APP_SLOGAN=
       - FORGEJO____APP_DISPLAY_NAME_FORMAT={APP_NAME}
@@ -37,10 +38,10 @@ services:
   db:
     image: postgres:17
     restart: unless-stopped
-    environment:
-      - POSTGRES_USER=forgejo
-      - POSTGRES_PASSWORD=forgejo
-      - POSTGRES_DB=forgejo
+    env_file: forgejo.secret
+    # POSTGRES_USER
+    # POSTGRES_PASSWORD
+    # POSTGRES_DB
     networks:
       - forgejo
     volumes:
