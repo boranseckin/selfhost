@@ -11,7 +11,7 @@ services:
     volumes:
       - postgres:/var/lib/postgresql/data
     networks:
-      - tailscale
+      - comet
 
   comet:
     image: g0ldyy/comet
@@ -26,11 +26,16 @@ services:
       SCRAPE_ZILEAN: true
       SCRAPE_TORRENTIO: true
       SCRAPE_MEDIAFUSION: true
-    env_file:
-      - comet.secret
+      PROXY_DEBRID_STREAM: true
+      PROXY_DEBRID_STREAM_MAX_CONNECTIONS: -1
+      PROXY_DEBRID_STREAM_DEBRID_DEFAULT_SERVICE: realdebrid
+    env_file: comet.secret
+    # PROXY_DEBRID_STREAM_PASSWORD
+    # PROXY_DEBRID_STREAM_DEBRID_DEFAULT_APIKEY
     volumes:
       - data:/app/data
     networks:
+      - comet
       - tailscale
     labels:
       tsdproxy.enable: true
@@ -42,5 +47,7 @@ volumes:
   postgres:
 
 networks:
+  comet:
+    name: comet
   tailscale:
     external: true
