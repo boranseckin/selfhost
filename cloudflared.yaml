@@ -6,6 +6,7 @@ services:
     restart: unless-stopped
     command: tunnel --no-autoupdate run
     env_file: cloudflared.secret
+    # TUNNEL_TOKEN
     networks:
       - cloudflared
 

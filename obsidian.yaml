@@ -4,8 +4,9 @@ services:
   couchdb:
     image: couchdb:latest
     restart: unless-stopped
-    env_file:
-      - ./obsidian.secret
+    env_file: obsidian.secret
+    # COUCHDB_USER
+    # COUCHDB_PASSWORD
     logging:
       driver: "json-file"
       options:

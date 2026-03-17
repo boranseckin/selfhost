@@ -8,10 +8,10 @@ services:
       - data:/data
       - ./:/config
       - /var/run/docker.sock:/var/run/docker.sock
-    networks:
-      - tailscale
     ports:
       - "8888:8888"
+    networks:
+      - tailscale
 
 volumes:
   data:

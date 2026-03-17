@@ -6,8 +6,8 @@ services:
     restart: unless-stopped
     volumes:
       - viniplay:/data
-    env_file:
-      - ./viniplay.secret
+    env_file: viniplay.secret
+    # SESSION_SECRET
     networks:
       - tailscale
     labels:
