@@ -24,15 +24,11 @@ services:
       retries: 5
       start_period: 15s
     networks:
-      - tailscale
-    labels:
-      tsdproxy.enable: true
-      tsdproxy.name: file
-      tsdproxy.container_port: 3923
+      - cloudflared
 
 volumes:
   state:
 
 networks:
-  tailscale:
+  cloudflared:
     external: true
