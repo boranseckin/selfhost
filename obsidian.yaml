@@ -4,22 +4,25 @@ services:
   couchdb:
     image: couchdb:latest
     restart: unless-stopped
-    environment:
-      - COUCHDB_USER=obsidian
-      - COUCHDB_PASSWORD=obsidian
+    env_file:
+      - ./obsidian.secret
     logging:
       driver: "json-file"
       options:
         max-size: "2048m"
     volumes:
-      - /share/obsidian/data:/opt/couchdb/data
-      - /share/obsidian/etc:/opt/couchdb/etc/local.d
+      - data:/opt/couchdb/data
+      - etc:/opt/couchdb/etc/local.d
     networks:
       - tailscale
     labels:
       tsdproxy.enable: true
       tsdproxy.name: obsidian
       tsdproxy.container_port: 5984
+
+volumes:
+  data:
+  etc:
 
 networks:
   tailscale:
