@@ -8,7 +8,9 @@ services:
     volumes:
       - ./:/cfg:ro
       - /share:/w
+      - state:/state
     environment:
+      XDG_CONFIG_HOME: /state
       # enable mimalloc by replacing "NOPE" with "2" for a nice speed-boost (will use twice as much ram)
       LD_PRELOAD: /usr/lib/libmimalloc-secure.so.NOPE
       # ensures log-messages are not delayed (but can reduce speed a tiny bit)
@@ -27,6 +29,9 @@ services:
       tsdproxy.enable: true
       tsdproxy.name: file
       tsdproxy.container_port: 3923
+
+volumes:
+  state:
 
 networks:
   tailscale:
