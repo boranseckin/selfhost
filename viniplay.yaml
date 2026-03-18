@@ -11,8 +11,8 @@ services:
     networks:
       - tailscale
     labels:
-      tsdproxy.enable: true
-      tsdproxy.name: tv
+      tsbridge.enable: true
+      tsbridge.service.name: tv
 
 volumes:
   viniplay:

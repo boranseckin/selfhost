@@ -11,8 +11,8 @@ services:
     networks:
       - tailscale
     labels:
-      tsdproxy.enable: true
-      tsdproxy.name: ai
+      tsbridge.enable: true
+      tsbridge.service.name: ai
 
 volumes:
   open-webui:

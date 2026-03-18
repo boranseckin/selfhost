@@ -2,13 +2,13 @@ name: bentopdf
 
 services:
   bentopdf:
-    image: bentopdf/bentopdf-simple:latest
+    image: ghcr.io/alam00000/bentopdf-simple:latest
     restart: unless-stopped
     networks:
       - tailscale
     labels:
-      tsdproxy.enable: true
-      tsdproxy.name: pdf
+      tsbridge.enable: true
+      tsbridge.service.name: pdf
 
 networks:
   tailscale:

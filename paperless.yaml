@@ -48,8 +48,8 @@ services:
       - paperless
       - tailscale
     labels:
-      tsdproxy.enable: true
-      tsdproxy.name: paperless
+      tsbridge.enable: true
+      tsbridge.service.name: paperless
 
   gotenberg:
     image: docker.io/gotenberg/gotenberg:8.20

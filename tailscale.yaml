@@ -1,20 +1,26 @@
 name: tailscale
 
 services:
-  tsdproxy:
-    image: almeidapaulopt/tsdproxy:1
-    restart: unless-stopped
+  tsbridge:
+    image: ghcr.io/jtdowney/tsbridge:latest
+    command: ["--provider", "docker"]
     volumes:
-      - data:/data
-      - ./:/config
       - /var/run/docker.sock:/var/run/docker.sock
-    ports:
-      - "8888:8888"
+      - state:/var/lib/tsbridge
+    env_file: tailscale.secret
+    # TS_OAUTH_CLIENT_ID
+    # TS_OAUTH_CLIENT_SECRET
     networks:
       - tailscale
+    labels:
+      - "tsbridge.tailscale.oauth_client_id_env=TS_OAUTH_CLIENT_ID"
+      - "tsbridge.tailscale.oauth_client_secret_env=TS_OAUTH_CLIENT_SECRET"
+      - "tsbridge.tailscale.state_dir=/var/lib/tsbridge"
+      - "tsbridge.tailscale.default_tags=tag:container"
+      - "tsbridge.global.access_log=false"
 
 volumes:
-  data:
+  state:
 
 networks:
   tailscale:

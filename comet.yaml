@@ -38,9 +38,9 @@ services:
       - comet
       - tailscale
     labels:
-      tsdproxy.enable: true
-      tsdproxy.name: comet
-      tsdproxy.container_port: 8000
+      tsbridge.enable: true
+      tsbridge.service.name: comet
+      tsbridge.service.port: 8000
 
 volumes:
   data:

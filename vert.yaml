@@ -7,8 +7,8 @@ services:
     networks:
       - tailscale
     labels:
-      tsdproxy.enable: true
-      tsdproxy.name: convert
+      tsbridge.enable: true
+      tsbridge.service.name: convert
 
 networks:
   tailscale:

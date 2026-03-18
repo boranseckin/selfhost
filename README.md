@@ -8,5 +8,5 @@
 - [bentopdf](https://github.com/alam00000/bentopdf)
 - [comet](https://github.com/g0ldyy/comet)
 - [viniplay](https://github.com/ardoviniandrea/ViniPlay)
-- [tsdproxy](https://github.com/almeidapaulopt/tsdproxy)
+- [tsbridge](https://github.com/jtdowney/tsbridge)
 - [watchtower](https://github.com/containrrr/watchtower)

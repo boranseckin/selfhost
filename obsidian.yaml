@@ -17,9 +17,9 @@ services:
     networks:
       - tailscale
     labels:
-      tsdproxy.enable: true
-      tsdproxy.name: obsidian
-      tsdproxy.container_port: 5984
+      tsbridge.enable: true
+      tsbridge.service.name: obsidian
+      tsbridge.service.port: 5984
 
 volumes:
   data:
