@@ -3,6 +3,7 @@ name: tailscale
 services:
   tsbridge:
     image: ghcr.io/jtdowney/tsbridge:latest
+    restart: unless-stopped
     command: ["--provider", "docker"]
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
