@@ -2,7 +2,7 @@ name: forgejo
 
 services:
   server:
-    image: codeberg.org/forgejo/forgejo:13
+    image: codeberg.org/forgejo/forgejo:15
     restart: unless-stopped
     env_file: forgejo.secret
     # FORGEJO__database__NAME
