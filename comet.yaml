@@ -19,7 +19,7 @@ services:
     depends_on:
       - postgres
     environment:
-      DASHBOARD_ADMIN_PASSWORD: comet
+      ADMIN_DASHBOARD_PASSWORD: comet
       DATABASE_TYPE: postgresql
       DATABASE_URL: comet:comet@postgres:5432
       SCRAPE_COMET: true
