@@ -4,12 +4,8 @@ services:
   bentopdf:
     image: ghcr.io/alam00000/bentopdf-simple:latest
     restart: unless-stopped
-    networks:
-      - tailscale
     labels:
-      tsbridge.enable: true
-      tsbridge.service.name: pdf
-
-networks:
-  tailscale:
-    external: true
+      docktail.service.enable: true
+      docktail.service.name: pdf
+      docktail.service.port: 8080
+      docktail.service.service-port: 443

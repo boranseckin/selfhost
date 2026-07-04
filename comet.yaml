@@ -36,11 +36,11 @@ services:
       - data:/app/data
     networks:
       - comet
-      - tailscale
     labels:
-      tsbridge.enable: true
-      tsbridge.service.name: comet
-      tsbridge.service.port: 8000
+      docktail.service.enable: true
+      docktail.service.name: comet
+      docktail.service.port: 8000
+      docktail.service.service-port: 443
 
 volumes:
   data:
@@ -49,5 +49,3 @@ volumes:
 networks:
   comet:
     name: comet
-  tailscale:
-    external: true

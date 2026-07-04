@@ -4,12 +4,8 @@ services:
   vert:
     image: ghcr.io/vert-sh/vert:latest
     restart: unless-stopped
-    networks:
-      - tailscale
     labels:
-      tsbridge.enable: true
-      tsbridge.service.name: convert
-
-networks:
-  tailscale:
-    external: true
+      docktail.service.enable: true
+      docktail.service.name: convert
+      docktail.service.port: 80
+      docktail.service.service-port: 443

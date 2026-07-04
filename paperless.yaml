@@ -46,10 +46,11 @@ services:
       PAPERLESS_CONSUMER_RECURSIVE: true
     networks:
       - paperless
-      - tailscale
     labels:
-      tsbridge.enable: true
-      tsbridge.service.name: paperless
+      docktail.service.enable: true
+      docktail.service.name: paperless
+      docktail.service.port: 8000
+      docktail.service.service-port: 443
 
   gotenberg:
     image: docker.io/gotenberg/gotenberg:8.20
@@ -78,5 +79,3 @@ volumes:
 networks:
   paperless:
     name: paperless
-  tailscale:
-    external: true

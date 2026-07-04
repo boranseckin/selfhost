@@ -8,15 +8,11 @@ services:
       - open-webui:/app/backend/data
     environment:
       WEBUI_AUTH: false
-    networks:
-      - tailscale
     labels:
-      tsbridge.enable: true
-      tsbridge.service.name: ai
+      docktail.service.enable: true
+      docktail.service.name: ai
+      docktail.service.port: 8080
+      docktail.service.service-port: 443
 
 volumes:
   open-webui:
-
-networks:
-  tailscale:
-    external: true

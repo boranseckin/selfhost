@@ -14,17 +14,12 @@ services:
     volumes:
       - data:/opt/couchdb/data
       - etc:/opt/couchdb/etc/local.d
-    networks:
-      - tailscale
     labels:
-      tsbridge.enable: true
-      tsbridge.service.name: obsidian
-      tsbridge.service.port: 5984
+      docktail.service.enable: true
+      docktail.service.name: obsidian
+      docktail.service.port: 5984
+      docktail.service.service-port: 443
 
 volumes:
   data:
   etc:
-
-networks:
-  tailscale:
-    external: true

@@ -8,15 +8,11 @@ services:
       - viniplay:/data
     env_file: viniplay.secret
     # SESSION_SECRET
-    networks:
-      - tailscale
     labels:
-      tsbridge.enable: true
-      tsbridge.service.name: tv
+      docktail.service.enable: true
+      docktail.service.name: tv
+      docktail.service.port: 8998
+      docktail.service.service-port: 443
 
 volumes:
   viniplay:
-
-networks:
-  tailscale:
-    external: true
