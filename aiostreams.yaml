@@ -1,0 +1,19 @@
+name: aiostreams
+
+services:
+  aiostreams:
+    image: ghcr.io/viren070/aiostreams:latest
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    env_file: aiostreams.secret
+    volumes:
+      - data:/app/data
+    labels:
+      docktail.service.enable: true
+      docktail.service.name: aiostreams
+      docktail.service.port: 3000
+      docktail.service.service-port: 443
+
+volumes:
+  data:
