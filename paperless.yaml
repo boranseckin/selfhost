@@ -35,6 +35,8 @@ services:
       - media:/usr/src/paperless/media
       - /share/paperless/export:/usr/src/paperless/export
       - /share/paperless/consume:/usr/src/paperless/consume
+    env_file: paperless.secret
+    # PAPERLESS_SECRET_KEY
     environment:
       PAPERLESS_TIME_ZONE: America/Toronto
       PAPERLESS_REDIS: redis://broker:6379
