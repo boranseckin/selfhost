@@ -1,0 +1,17 @@
+name: dozzle
+
+services:
+  dozzle:
+    image: amir20/dozzle:latest
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - data:/data
+    labels:
+      docktail.service.enable: true
+      docktail.service.name: logs
+      docktail.service.port: 8080
+      docktail.service.service-port: 443
+
+volumes:
+  data:

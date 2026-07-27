@@ -12,3 +12,4 @@
 - [docktail](https://github.com/marvinvr/docktail)
 - [cloudflared](https://github.com/cloudflare/cloudflared)
 - [watchtower](https://github.com/containrrr/watchtower)
+- [dozzle](https://github.com/amir20/dozzle)
