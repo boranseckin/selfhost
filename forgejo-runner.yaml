@@ -1,0 +1,32 @@
+name: forgejo-runner
+
+services:
+  dind:
+    image: docker:29.6.1-dind
+    privileged: true
+    restart: unless-stopped
+    command: ['dockerd', '-H', 'tcp://0.0.0.0:2375', '--tls=false', '--log-level', 'warn']
+    networks:
+      - forgejo-runner
+
+  runner:
+    image: data.forgejo.org/forgejo/runner:12
+    restart: unless-stopped
+    depends_on:
+      dind:
+        condition: service_started
+    environment:
+      DOCKER_HOST: tcp://dind:2375
+    volumes:
+      - data:/data
+      - ./forgejo-runner.secret:/data/runner-config.yml
+    networks:
+      - forgejo-runner
+    command: forgejo-runner daemon --config runner-config.yml
+
+volumes:
+  data:
+
+networks:
+  forgejo-runner:
+    name: forgejo-runner
