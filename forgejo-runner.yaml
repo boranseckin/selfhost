@@ -9,6 +9,24 @@ services:
     networks:
       - forgejo-runner
 
+  dind-pruner:
+    image: docker:29-cli
+    restart: unless-stopped
+    depends_on:
+      dind:
+        condition: service_started
+    environment:
+      DOCKER_HOST: tcp://dind:2375
+      TZ: America/Toronto
+    # setup cronjob to run at 01:00 to prune volumes
+    entrypoint: >
+      sh -c "
+      echo '0 1 * * * DOCKER_HOST=tcp://dind:2375 docker system prune -af --volumes >> /var/log/dind-prune.log 2>&1' > /etc/crontabs/root &&
+      crond -f -l 2
+      "
+    networks:
+      - forgejo-runner
+
   runner:
     image: data.forgejo.org/forgejo/runner:12
     restart: unless-stopped
