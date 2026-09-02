@@ -14,10 +14,10 @@ services:
     restart: unless-stopped
     volumes:
       - pgdata:/var/lib/postgresql/data
-    environment:
-      POSTGRES_DB: paperless
-      POSTGRES_USER: paperless
-      POSTGRES_PASSWORD: paperless
+    env_file: paperless.secret
+    # POSTGRES_USER
+    # POSTGRES_PASSWORD
+    # POSTGRES_DB
     networks:
       - paperless
 
