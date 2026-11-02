@@ -6,7 +6,7 @@ SELFHOST_DIR="/home/boran/selfhost"
 BACKUP_ROOT="/root/backups/docker-volumes"
 DATE=$(date +%Y-%m-%d)
 DEST="$BACKUP_ROOT/$DATE"
-RETAIN_DAYS=14
+RETAIN_DAYS=5
 
 mkdir -p $DEST
 
