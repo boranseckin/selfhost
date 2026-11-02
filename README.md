@@ -9,6 +9,7 @@
 - [bentopdf](https://github.com/alam00000/bentopdf)
 - [viniplay](https://github.com/ardoviniandrea/ViniPlay)
 - [aiostreams](https://github.com/Viren070/AIOStreams)
+- [ezbookkeeping](https://github.com/mayswind/ezbookkeeping)
 - [docktail](https://github.com/marvinvr/docktail)
 - [cloudflared](https://github.com/cloudflare/cloudflared)
 - [watchtower](https://github.com/containrrr/watchtower)

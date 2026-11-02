@@ -1,0 +1,27 @@
+name: ezbookkeeping
+
+services:
+  ezbookkeeping:
+    image: mayswind/ezbookkeeping:latest
+    restart: unless-stopped
+    env_file: ezbookkeeping.secret
+    depends_on:
+      - db
+    labels:
+      docktail.service.enable: true
+      docktail.service.name: money
+      docktail.service.port: 8080
+      docktail.service.service-port: 443
+
+  db:
+    image: docker.io/library/postgres:17
+    restart: unless-stopped
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    env_file: ezbookkeeping.secret
+    # POSTGRES_USER
+    # POSTGRES_PASSWORD
+    # POSTGRES_DB
+
+volumes:
+  pgdata:
