@@ -1,0 +1,10 @@
+[Unit]
+Description=Trigger boranseckin.com Spotify play collector
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+EnvironmentFile=/home/boran/selfhost/walrus.secret
+ExecStart=/usr/bin/curl -fsS --max-time 60 -H "Authorization: Bearer ${CRON_SECRET}" https://www.boranseckin.com/api/cron/plays
+DynamicUser=yes
