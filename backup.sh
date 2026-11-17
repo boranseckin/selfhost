@@ -13,6 +13,7 @@ mkdir -p $DEST
 # --- Pull DB credentials from each project's secret file ---
 FORGEJO_ENV="$SELFHOST_DIR/forgejo.secret"
 PAPERLESS_ENV="$SELFHOST_DIR/paperless.secret"
+EZBOOK_ENV="$SELFHOST_DIR/ezbookkeeping.secret"
 
 FORGEJO_DB_USER=$(grep -E '^POSTGRES_USER=' "$FORGEJO_ENV" | cut -d= -f2-)
 FORGEJO_DB_NAME=$(grep -E '^POSTGRES_DB='   "$FORGEJO_ENV" | cut -d= -f2-)
@@ -20,12 +21,18 @@ FORGEJO_DB_NAME=$(grep -E '^POSTGRES_DB='   "$FORGEJO_ENV" | cut -d= -f2-)
 PAPERLESS_DB_USER=$(grep -E '^POSTGRES_USER=' "$PAPERLESS_ENV" | cut -d= -f2-)
 PAPERLESS_DB_NAME=$(grep -E '^POSTGRES_DB='   "$PAPERLESS_ENV" | cut -d= -f2-)
 
+EZBOOK_DB_USER=$(grep -E '^POSTGRES_USER=' "$EZBOOK_ENV" | cut -d= -f2-)
+EZBOOK_DB_NAME=$(grep -E '^POSTGRES_DB='   "$EZBOOK_ENV" | cut -d= -f2-)
+
 # --- Postgres dumps ---
 echo "Dumping forgejo-db..."
 docker exec forgejo-db-1 pg_dump -U "$FORGEJO_DB_USER" "$FORGEJO_DB_NAME" | gzip > "$DEST/forgejo-db.sql.gz"
 
 echo "Dumping paperless-db..."
 docker exec paperless-db-1 pg_dump -U "$PAPERLESS_DB_USER" "$PAPERLESS_DB_NAME" | gzip > "$DEST/paperless-db.sql.gz"
+
+echo "Dumping ezbookkeeping-db..."
+docker exec ezbookkeeping-db-1 pg_dump -U "$EZBOOK_DB_USER" "$EZBOOK_DB_NAME" | gzip > "$DEST/ezbookkeeping-db.sql.gz"
 
 # --- Volume archives ---
 VOLUMES=(
